@@ -4,19 +4,24 @@ dist: trusty
 node_js: stable
 before_script:
 - npm install --silent bower polymer-cli
-- ./node_modules/.bin/bower install --silent
+- "./node_modules/.bin/bower install --silent"
 addons:
   sauce_connect: true
 script:
-- ./node_modules/.bin/polymer lint raml-headers-form.html
-- ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-headers-form:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
+- "./node_modules/.bin/polymer lint raml-headers-form.html"
+- ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-headers-form:${TRAVIS_BRANCH}"
+  --build-number=${TRAVIS_BUILD_NUMBER}
 cache:
   directories:
   - bower_components
   - node_modules
 branches:
   only:
-    - stage
-    - develop
+  - stage
+  - develop
 after_success:
-  - node tasks/ci.js
+- node tasks/ci.js
+env:
+  global:
+  - secure: rB7A/jcmopvzXXJEbwkvxZloNZAytjYhhjUyM32Tm54sUIx1e3nmlWZCgVbrDgON4cs87NquwqQq40JEeoJvGUOJW42rqmFxYu6zgtmUoW7omYMx4eeDg687+awerxVH71MJWXnsAWhhHLqoktzkQ7lfmkEmHKnS2W/cDAvUluM1g0B2Ga2aGM7+GtRJ3cCGOQPj8m178GKhiiJxrMK4Qs1eIcV72Vy9DBMmxRIjnx7a1/wMrxE+s+Fb3BIFP9wN30Rl0J2e4Cqqu1rF/9UlVIFSLBwbButRSyORbs9rornQCRrJxYmkuo9s2fuGcirpp3HLxlZSR44N37n9IkGq+y9p32EvOQXn8lPK9dNZvd+JdiRBlAe9mr4zh+ytRGuWNCSe/64K88AfAaaUBjls1UqhnKfX/vY+ARTEfhW1SUpVCRwkOs5pUXYJsqmkjTXfqLOB+ECTA8mW9sj245QWmV6NMPEgC575+0wGRJNnQrgXSMTQjqUCZh8DL0h9rSgnNHORzk1d3ZKlXz7KeV+seDXLkv9vVSdLOv6aLkLJGyg/+8HA4TDAGReCG3Nc7jEcQrX657CG/bKI5yBbGsxITTv6y0dtPVsP3d4jFuSNM+ZL0Jwp34Z3Igt2UTQnq+9cVVDQHqLAC7qU0rFUd2teY4hI0KbTa9J3rI3FeyTT15g=
+  - secure: jFUHNfhhXNq48SYfo4k2nITtXAFtntTSOQpIiEkPRT1yywwUaw0MK1zYilMtKSPILxv2ls31juQnhVRU6IGXvc/nRoH0eC9C3mLj8rHmnjurCdtmm0Lsx1egH+8NLJCNBYSOvpU3IdkX3rABfBHqaUeAEEVFqCoJhAkmPMk+pQ1axEAUxEeZTC9vXwI0NkuFhgs8ZT0mw/cUnJf4IelFKoT7oX7EeYAHXqYeR9qtEpA6AB3ygbblWENfVPB8xR1nxJAa11eMeqkThqbk9f/dsJUcjn2/DjT48sufiI9J6HxwAJasaLoMT83P7P8gdKicXmQ1NJJU4XNTBgfAyaK4Wm2WAf+TNEF0cjuPgbKQXXpSv7aaAql80JnIjJEg/CctOzdB7mg8gTHSmyA/B9GwHMJZFsiTKmQg2cYqWIgZnbHtjUiDJ/gmyNh+AsZSxCF/znbRlD+pKBStUeBjhWwsOdQWE565MaxMD0i0SdSlQFrxhJ40q0NPkLC2RqQtRRbZ4dA9kPrNR1ZTLKYDftxtartdtJLDnBeoL27KDGQF4WNZH8naFSZdi3/DD+YGMjsnaa0l1QwGhj5YWCpex2bI0yTSKJIq3LDGlxsyYlaruKfrG4k67wpvL4XFnrr30ApUU9q9gAaUMvzTVTXCPb4YCJS/aAAKZSWsFw3DId++6EA=
