@@ -190,6 +190,13 @@ Custom property | Description | Default
 
     behaviors: [ArcBehaviors.HeadersParserBehavior],
 
+    /**
+     * Fired when the headers value changed.
+     *
+     * @event headers-value-changed
+     * @param {String} value The headers value.
+     */
+
     properties: {
       // Headers description defined in the RAML file.
       ramlHeaders: Array,
@@ -213,7 +220,7 @@ Custom property | Description | Default
         type: HTMLElement,
         readOnly: true
       },
-      // Current value of the headers. Changing this value will not change the editor content.
+      // Current value of the headers. Changing the value will update the list of the headers.
       value: {
         type: String,
         value: '',
