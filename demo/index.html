@@ -22,7 +22,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../raml-headers-form.html">
 
-  <style is="custom-style">
+  <style>
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
 
   raml-headers-form {
     margin-bottom: 40px;
@@ -36,9 +48,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>The raml-headers-form element</h1>
       <div main>
         <template is="dom-if" if="[[isMethod]]">
-          <raml-headers-form value="{{value}}" raml-headers="[[selected.headers]]"></raml-headers-form>
+          <raml-headers-form value="{{headers}}" raml-headers="[[selected.headers]]"></raml-headers-form>
           <h3>Current headers value</h3>
-          <textarea name="name" rows="8" cols="40" value="{{input:value}}"></textarea>
+          <textarea name="name" rows="8" cols="40" value="{{headers::input}}"></textarea>
         </template>
         <p hidden$="[[isMethod]]">Select a method</p>
         </div>
