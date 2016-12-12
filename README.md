@@ -33,3 +33,9 @@ Custom property | Description | Default
 ## TODO
 - Remove arc-definitions and place only request headers definitions or instruct to use definitions as an external element
 
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| headers-value-changed | Fired when the headers value changed. | value **String** - The headers value. |
