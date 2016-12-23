@@ -93,16 +93,17 @@ Custom property | Description | Default
     }
 
     .predefined-row label {
-      width: 120px;
       display: block;
       min-width: 120px;
-      @apply(--layout-vertical);
-      @apply(--layout-center-justified);
+      @apply(--layout-horizontal);
+      @apply(--layout-end-justified);
       @apply(--paper-font-body1);
       font-size: 15px;
       color: var(--raml-headers-form-prodefined-name-color, rgba(0, 0, 0, 0.87));
       text-align: right;
       margin-right: 8px;
+      padding-top: 12px;
+      @apply(--form-label);
     }
 
     .header-value {
