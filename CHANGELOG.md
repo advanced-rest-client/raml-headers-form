@@ -1,3 +1,13 @@
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/advanced-rest-client/raml-headers-form/compare/0.1.4...v0.1.5) (2016-12-23)
+
+
+### Update
+
+* Updated label styling to fit ARC theming options ([42095a37732a8e21d1baaea92c6ae066a7d7599d](https://github.com/advanced-rest-client/raml-headers-form/commit/42095a37732a8e21d1baaea92c6ae066a7d7599d))
+
+
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/advanced-rest-client/raml-headers-form/compare/0.1.3...v0.1.4) (2016-12-12)
 
