@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/advanced-rest-client/raml-headers-form.svg?branch=master)](https://travis-ci.org/advanced-rest-client/raml-headers-form)  
+[![Build Status](https://travis-ci.org/advanced-rest-client/raml-headers-form.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/raml-headers-form)  
 
 # raml-headers-form
 
