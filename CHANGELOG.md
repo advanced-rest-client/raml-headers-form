@@ -1,3 +1,13 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.1...v0.2.3) (2017-03-13)
+
+
+### Fix
+
+* Fixes #1 - value doesn't change when using source editor ([a49786e8abde6e4aa4f02a99d365dd7efabce8f8](https://github.com/advanced-rest-client/raml-headers-form/commit/a49786e8abde6e4aa4f02a99d365dd7efabce8f8)), closes [#1](https://github.com/advanced-rest-client/raml-headers-form/issues/1)
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.1...v0.2.2) (2017-03-13)
 
