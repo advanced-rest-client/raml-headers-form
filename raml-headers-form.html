@@ -594,27 +594,64 @@ Custom property | Description | Default
         return;
       }
 
-      var def = this.renderedRamlHeaders;
-      if (!def || !def.length) {
-        return;
-      }
-
       var headers = this.headersToJSON(value);
       if (!headers || !headers.length) {
         return;
       }
 
+      var def = this.renderedRamlHeaders;
+      var i;
+      var len;
       this._internalValueChange = true;
-      var defLength = def.length;
-      for (var i = 0, len = headers.length; i < len; i++) {
-        for (var j = 0; j < defLength; j++) {
-          if (headers[i].name === def[j].name) {
-            this.set(['renderedRamlHeaders', j, 'value'], headers[i].value);
-            break;
+      if (def && def.length) {
+        var defLength = def.length;
+        for (i = 0, len = headers.length; i < len; i++) {
+          var found = false;
+          for (var j = 0; j < defLength; j++) {
+            if (headers[i].name === def[j].name) {
+              found = true;
+              this.set(['renderedRamlHeaders', j, 'value'], headers[i].value);
+              break;
+            }
           }
+          if (!found) {
+            this.push('renderedRamlHeaders', this._headersModelFromObject(headers[i]));
+          }
+        }
+        // remove headers that are currently in the form but they are not set in
+        // the parsed values array.
+        var parsedNames = headers.map(function(item) {
+          return item.name;
+        });
+        for (i = def.length - 1; i >= 0; i--) {
+          if (parsedNames.indexOf(def[i].name) === -1) {
+            this.splice('renderedRamlHeaders', i, 1);
+          }
+        }
+      } else {
+        for (i = 0, len = headers.length; i < len; i++) {
+          this.push('renderedRamlHeaders', this._headersModelFromObject(headers[i]));
         }
       }
       this._internalValueChange = false;
+    },
+    /**
+     * Transforms generated from headers source string header object to
+     * form's intenal data object.
+     *
+     * @param {Object<string, string>} header Map of header properties (name
+     * and value)
+     * @return {Object} Internal datamodel created from the header.
+     */
+    _headersModelFromObject: function(header) {
+      return {
+        key: header.name,
+        name: header.name,
+        required: false,
+        type: 'string',
+        value: header.value,
+        customHeader: true
+      };
     },
 
     /**
