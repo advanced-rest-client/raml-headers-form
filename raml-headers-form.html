@@ -355,7 +355,7 @@ Custom property | Description | Default
     },
 
     // Computes input type attribute based on item's type
-    _computeInputType(itemType) {
+    _computeInputType: function(itemType) {
       if (!itemType || itemType === 'text') {
         return 'text';
       }
