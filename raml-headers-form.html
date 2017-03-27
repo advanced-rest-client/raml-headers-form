@@ -241,6 +241,9 @@ Custom property | Description | Default
       // It's a copy of the `ramlHeaders` array that can be manipulated by the user.
       renderedRamlHeaders: {
         type: Array,
+        value: function() {
+          return [];
+        },
         computed: '_computeRenderedRamlHeaders(ramlHeaders.*)'
       },
       /**
@@ -355,7 +358,7 @@ Custom property | Description | Default
     },
 
     // Computes input type attribute based on item's type
-    _computeInputType(itemType) {
+    _computeInputType: function(itemType) {
       if (!itemType || itemType === 'text') {
         return 'text';
       }
