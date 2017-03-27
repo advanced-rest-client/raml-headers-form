@@ -1,3 +1,24 @@
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.4...v0.2.6) (2017-03-27)
+
+
+### Fix
+
+* Fixed function declaration to be ES5 compilant ([f203df93a44fc9a90e9def6fa2ca4d6cd0413f3f](https://github.com/advanced-rest-client/raml-headers-form/commit/f203df93a44fc9a90e9def6fa2ca4d6cd0413f3f))
+
+### Update
+
+* Added default value for the form editor so it can render headers value even when RAML is not set ([04838eb924f327403f4ac9c596faf5da76ed1e46](https://github.com/advanced-rest-client/raml-headers-form/commit/04838eb924f327403f4ac9c596faf5da76ed1e46))
+* Switched ES level for linter ([d23dea95482e3c358b6d79bfdb8242cd2cf45852](https://github.com/advanced-rest-client/raml-headers-form/commit/d23dea95482e3c358b6d79bfdb8242cd2cf45852))
+
+
+
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.4...v0.2.5) (2017-03-14)
+
+
+
+
 <a name="0.2.4"></a>
 ## [0.2.4](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.3...v0.2.4) (2017-03-13)
 
