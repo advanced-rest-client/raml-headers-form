@@ -20,9 +20,10 @@ the License.
 <link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
 <link rel="import" href="../arc-definitions/arc-definitions.html">
 <link rel="import" href="../anypoint-text-field/anypoint-text-field.html">
+<link rel="import" href="../anypoint-text-field/anypoint-text-container.html">
 <link rel="import" href="../anypoint-styles/dropdown-menu.html">
 <link rel="import" href="../anypoint-icons/anypoint-icons.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../anypoint-input/anypoint-input.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
@@ -83,13 +84,13 @@ Custom property | Description | Default
 
       @apply(--raml-headers-form);
 
-      --paper-input-container-label: {
+      --anypoint-text-container-label: {
         color: var(--raml-headers-form-input-label-color, rgba(0, 0, 0, 0.48));
       }
     }
 
-    .required paper-input {
-      --paper-input-container-label: {
+    .required anypoint-text-field {
+      --anypoint-text-container-label: {
         color: var(--raml-request-parameters-editor-required-input-label-color, rgba(0, 0, 0, 0.72));
       }
     }
@@ -126,12 +127,14 @@ Custom property | Description | Default
       padding-bottom: 0;
     }
 
-    .help-icon {
+    .help-icon,
+    .delete-icon {
       color: rgba(0, 0, 0, 0.12);
       transition: color 0.2s linear;
     }
 
-    .help-icon:hover {
+    .help-icon:hover,
+    .delete-icon:hover {
       color: var(--accent-color, rgba(0, 0, 0, 0.74));
     }
 
@@ -142,7 +145,7 @@ Custom property | Description | Default
     }
 
     .value-input paper-dropdown-menu,
-    .value-input paper-input {
+    .value-input anypoint-text-field {
       @apply(--layout-flex);
     }
 
@@ -153,6 +156,11 @@ Custom property | Description | Default
     .action-button {
       color: var(--accent-color);
       background-color: #fff;
+      @apply(--raml-headers-form-action-button);
+    }
+
+    .action-button:hover {
+      @apply(--raml-headers-form-action-button-hover);
     }
     </style>
     <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
@@ -176,18 +184,23 @@ Custom property | Description | Default
               <div class="input">
                 <template is="dom-if" if="[[!_hasName(item.*)]]">
                   <!-- custom header name -->
-                  <paper-input-container class="header-name" auto-validate>
+                  <anypoint-text-container class="header-name" auto-validate>
                     <label>Header name</label>
                     <input
-                      is="iron-input"
+                      is="anypoint-input"
                       class="name-change-input"
                       on-focus="_headerNameFocus"
                       type="text"
                       value="{{item.name::input}}"
                       required pattern="\S*"
-                      on-change="_headerNameChanged" />
-                    <paper-input-error>Header name is not valid</paper-input-error>
-                  </paper-input-container>
+                      invalid="{{item.invalid}}"
+                      on-change="_headerNameChanged"/>
+                      <anypoint-validation-result
+                        aria-live="assertive"
+                        error-message="Header name is not valid"
+                        invalid="[[item.invalid]]"
+                        horizontal-align="right"></anypoint-validation-result>
+                  </anypoint-text-container>
                 </template>
                 <anypoint-text-field
                   label="[[_computeInputLabel(item.*)]]"
@@ -202,11 +215,12 @@ Custom property | Description | Default
                   max="[[item.maximum]]"
                   maxlength="[[item.maxLength]]"
                   always-float-label="[[_computeFloatLabel(item.*)]]"
-                  placeholder="[[_computePlacdeholder(item.*)]]">
+                  placeholder="[[_computePlacdeholder(item.*)]]"
+                  error-message="This header is required">
                 </anypoint-text-field>
               </div>
               <paper-icon-button noink title="Remove header" class="delete-icon" suffix icon="anypoint:close" hidden$="[[!hasValue(item.customHeader)]]" on-tap="_removeHeader"></paper-icon-button>
-              <paper-icon-button noink title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
+              <paper-icon-button noink title="Display documentation" class="help-icon" suffix icon="anypoint:question" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
             </template>
           </div>
           <div class="docs" hidden$="[[!hasValue(item.description)]]">
@@ -221,7 +235,7 @@ Custom property | Description | Default
       </template>
     </form>
     <div class="add-action">
-      <paper-button class="action-button" on-tap="add">add custom header</paper-button>
+      <paper-button class="action-button" on-tap="add">Add custom header</paper-button>
     </div>
     <arc-definitions></arc-definitions>
   </template>
