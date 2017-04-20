@@ -19,7 +19,9 @@ the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
 <link rel="import" href="../arc-definitions/arc-definitions.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../anypoint-text-field/anypoint-text-field.html">
+<link rel="import" href="../anypoint-styles/dropdown-menu.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
@@ -72,6 +74,7 @@ Custom property | Description | Default
 -->
 <dom-module id="raml-headers-form">
   <template>
+    <style include="anypoint-dropdown-menu-styles"></style>
     <style include="markdown-styles"></style>
     <style>
      :host {
@@ -159,7 +162,7 @@ Custom property | Description | Default
         <div class$="[[_computeRowClass(item)]]">
           <div class="value-input">
             <template is="dom-if" if="[[_computeIsEnum(item.enum)]]">
-              <paper-dropdown-menu label="[[_computeInputLabel(item.*)]]" name="[[item.name]]" required id="rrpv-[[index]]">
+              <paper-dropdown-menu label="[[_computeInputLabel(item.*)]]" name="[[item.name]]" required id="rrpv-[[index]]" class="anypoint-dropdown-menu">
                 <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{item.value}}">
                   <template is="dom-repeat" items="[[item.enum]]">
                     <paper-item data-value="[[item]]">[[item]]</paper-item>
@@ -186,7 +189,7 @@ Custom property | Description | Default
                     <paper-input-error>Header name is not valid</paper-input-error>
                   </paper-input-container>
                 </template>
-                <paper-input
+                <anypoint-text-field
                   label="[[_computeInputLabel(item.*)]]"
                   id="rrpv-[[index]]"
                   value="{{item.value}}"
@@ -200,10 +203,10 @@ Custom property | Description | Default
                   maxlength="[[item.maxLength]]"
                   always-float-label="[[_computeFloatLabel(item.*)]]"
                   placeholder="[[_computePlacdeholder(item.*)]]">
-                </paper-input>
+                </anypoint-text-field>
               </div>
-              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!hasValue(item.customHeader)]]" on-tap="_removeHeader"></paper-icon-button>
-              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
+              <paper-icon-button noink title="Remove header" class="delete-icon" suffix icon="anypoint:close" hidden$="[[!hasValue(item.customHeader)]]" on-tap="_removeHeader"></paper-icon-button>
+              <paper-icon-button noink title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
             </template>
           </div>
           <div class="docs" hidden$="[[!hasValue(item.description)]]">
