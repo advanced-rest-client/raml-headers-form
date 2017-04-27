@@ -1,3 +1,22 @@
+<a name="0.2.8"></a>
+## [0.2.8](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.7...v0.2.8) (2017-04-27)
+
+
+### New
+
+* Added test cases ([f2aacbcaf16268b8caba08d1fcb016460c15188b](https://github.com/advanced-rest-client/raml-headers-form/commit/f2aacbcaf16268b8caba08d1fcb016460c15188b))
+
+### Update
+
+* Added disallowCustom property that prohibits adding custom (not defined in RAML) headers ([808fabfd03d667c18ddfe6b68c914bf6011400ff](https://github.com/advanced-rest-client/raml-headers-form/commit/808fabfd03d667c18ddfe6b68c914bf6011400ff))
+* Added timeout for RAML enhancer ([3d16d16ac7e6313f71e0505369b70dc38f7fc21c](https://github.com/advanced-rest-client/raml-headers-form/commit/3d16d16ac7e6313f71e0505369b70dc38f7fc21c))
+* Minor performance improvements ([383dd6d367cd9534b8bf5d7fe4bcfbe8c6c41a1f](https://github.com/advanced-rest-client/raml-headers-form/commit/383dd6d367cd9534b8bf5d7fe4bcfbe8c6c41a1f))
+* Removed narrow and narrowWidth property. Since the layout is fully responsive there is no need to keep them ([35e8d09e94534f81744ee3c9254f2c5b2edd9e72](https://github.com/advanced-rest-client/raml-headers-form/commit/35e8d09e94534f81744ee3c9254f2c5b2edd9e72))
+* Replaced lint command for travis with npm command ([4732870ec5d0d5a3bb3b1c122547a48d7fda2dd2](https://github.com/advanced-rest-client/raml-headers-form/commit/4732870ec5d0d5a3bb3b1c122547a48d7fda2dd2))
+* Updated demo pages for the disallow-custom property ([d099bed8b1b6077b40a8c2020f36d1b245929c6f](https://github.com/advanced-rest-client/raml-headers-form/commit/d099bed8b1b6077b40a8c2020f36d1b245929c6f))
+
+
+
 <a name="0.2.7"></a>
 ## [0.2.7](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.6...v0.2.7) (2017-03-27)
 

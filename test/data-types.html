@@ -36,14 +36,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="basic">
+    <test-fixture id="dataTypes">
       <template>
         <raml-headers-form></raml-headers-form>
       </template>
     </test-fixture>
 
     <script>
-    /* global fixture, assert, TestHelpers, sinon */
+    /* global fixture, assert, TestHelpers */
     suite('basic', function() {
       var parsedRaml;
       var element;
@@ -68,47 +68,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       setup(function() {
-        element = fixture('basic');
+        element = fixture('dataTypes');
       });
 
-      test('Computes header array', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.isArray(element.renderedRamlHeaders);
-      });
-
-      test('Insert default value from example when required', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.renderedRamlHeaders[0].value, '123456-acme.client.com');
-      });
-
-      test('Update value for default required values', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.value, 'strig-header: 123456-acme.client.com');
-      });
-
-      test('Fires headers-value-changed event when value change', function() {
-        var spy = sinon.stub();
-        element.addEventListener('headers-value-changed', spy);
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.isTrue(spy.calledOnce, 'Event has been called once');
-      });
-
-      test('Update value from custom event', function() {
+      test('Renders text field of type text', function() {
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
 
-        var event = new CustomEvent('headers-value-changed', {
-          detail: {
-            value: 'x-test: true'
-          },
-          bubbles: true
-        });
-        document.dispatchEvent(event);
-        assert.equal(element.value, 'x-test: true');
+        var input = Polymer.dom(element.root).querySelector('.input paper-input');
+        assert.equal(input.type, 'text');
+      });
+
+      test('Renders text field of type number', function() {
+        element.ramlHeaders = parsedRaml.resources[1].methods[0].headers;
+        TestHelpers.forceXIfStamp(element);
+
+        var input = Polymer.dom(element.root).querySelector('.input paper-input');
+        assert.equal(input.type, 'number');
+      });
+
+      test('Renders dropdown list for enums', function() {
+        element.ramlHeaders = parsedRaml.resources[2].methods[0].headers;
+        TestHelpers.forceXIfStamp(element);
+
+        var input = Polymer.dom(element.root).querySelector('.value-input paper-dropdown-menu');
+        assert.ok(input);
       });
     });
     </script>
