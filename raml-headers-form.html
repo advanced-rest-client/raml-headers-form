@@ -23,7 +23,6 @@ the License.
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
-<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../markdown-styles/markdown-styles.html">
@@ -152,7 +151,6 @@ Custom property | Description | Default
       background-color: #fff;
     }
     </style>
-    <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
 
     <form is="iron-form" id="form">
       <template is="dom-repeat" items="{{renderedRamlHeaders}}" id="headersList">
@@ -269,20 +267,6 @@ Custom property | Description | Default
         type: String,
         value: '',
         notify: true
-      },
-      /**
-       * If set it will renders the view in the narrow layout.
-       */
-      narrow: {
-        type: Boolean,
-        value: false,
-        notify: true,
-        reflectToAttribute: true
-      },
-      // A widith below which the `narrow` property will be set to true.
-      narrowWidth: {
-        type: String,
-        value: '768px'
       },
       // A node on which this element add it's listeners.
       _eventTarget: HTMLElement,
