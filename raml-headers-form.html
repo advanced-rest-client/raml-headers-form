@@ -70,7 +70,7 @@ Custom property | Description | Default
 @demo demo/index.html
 -->
 <dom-module id="raml-headers-form">
-  <template>
+  <template strip-whitespace>
     <style include="markdown-styles"></style>
     <style>
      :host {
@@ -156,7 +156,7 @@ Custom property | Description | Default
       <template is="dom-repeat" items="{{renderedRamlHeaders}}" id="headersList">
         <div class$="[[_computeRowClass(item)]]">
           <div class="value-input">
-            <template is="dom-if" if="[[_computeIsEnum(item.enum)]]">
+            <template is="dom-if" if="[[item.isEnum]]">
               <paper-dropdown-menu label="[[_computeInputLabel(item.*)]]" name="[[item.name]]" required id="rrpv-[[index]]">
                 <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{item.value}}">
                   <template is="dom-repeat" items="[[item.enum]]">
@@ -165,9 +165,9 @@ Custom property | Description | Default
                   <paper-item label=" ">(empty value)</paper-item>
                 </paper-listbox>
               </paper-dropdown-menu>
-              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
+              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="_openDocs"></paper-icon-button>
             </template>
-            <template is="dom-if" if="[[!_computeIsEnum(item.enum)]]">
+            <template is="dom-if" if="[[!item.isEnum]]">
               <div class="input">
                 <template is="dom-if" if="[[!_hasName(item.*)]]">
                   <!-- custom header name -->
@@ -200,17 +200,19 @@ Custom property | Description | Default
                   placeholder="[[_computePlacdeholder(item.*)]]">
                 </paper-input>
               </div>
-              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!hasValue(item.customHeader)]]" on-tap="_removeHeader"></paper-icon-button>
-              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!hasValue(item.description)]]" on-tap="_openDocs"></paper-icon-button>
+              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!item.customHeader]]" on-tap="_removeHeader"></paper-icon-button>
+              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="_openDocs"></paper-icon-button>
             </template>
           </div>
-          <div class="docs" hidden$="[[!hasValue(item.description)]]">
-            <iron-collapse>
-              <marked-element markdown="[[item.description]]">
-                <div class="markdown-html markdown-body"></div>
-              </marked-element>
-            </iron-collapse>
-          </div>
+          <template is="dom-if" if="[[item.hasDescription]]" restamp="true">
+            <div class="docs">
+              <iron-collapse>
+                <marked-element markdown="[[item.description]]">
+                  <div class="markdown-html markdown-body"></div>
+                </marked-element>
+              </iron-collapse>
+            </div>
+          </template>
           <paper-autocomplete open-on-focus on-query="_queryHeaderName" on-selected="_onHeaderNameSelected"></paper-autocomplete>
         </div>
       </template>
@@ -304,6 +306,8 @@ Custom property | Description | Default
     _transformHeaders: function(headers) {
       return headers.map(function(item) {
         item = Object.assign({}, item);
+        item.isEnum = !!(item.enum && item.enum.length);
+        item.hasDescription = !!item.description;
         if (item.required && typeof item.default !== 'undefined' && !item.value) {
           item.value = item.default;
         }
@@ -316,7 +320,7 @@ Custom property | Description | Default
           if (item.value && item.value.indexOf && item.value.indexOf(item.name + ':') === 0) {
             item.value = item.value.substr(item.name.length + 1);
           }
-          if (typeof item.value === 'undefined' && item.enum && item.enum.length) {
+          if (typeof item.value === 'undefined' && item.isEnum) {
             item.value = item.enum[0];
           }
         }
@@ -430,8 +434,7 @@ Custom property | Description | Default
           elm.fire('bind-value-changed');
         }
         if (!this._queryHeaderInfo(e.detail.value)) {
-          this.set(['renderedRamlHeaders', index, 'description'], '');
-          this.set(['renderedRamlHeaders', index, 'examples'], ['']);
+          this._updateCustomHeaderMeta(index);
         }
       }
     },
@@ -450,14 +453,11 @@ Custom property | Description | Default
         return;
       }
       if (item.name) {
-        if (!this._queryHeaderInfo(item.name)) {
-          this.set(['renderedRamlHeaders', index, 'description'], '');
-          this.set(['renderedRamlHeaders', index, 'examples'], ['']);
+        if (this._queryHeaderInfo(item.name)) {
+          return;
         }
-        return;
       }
-      this.set(['renderedRamlHeaders', index, 'description'], '');
-      this.set(['renderedRamlHeaders', index, 'examples'], ['']);
+      this._updateCustomHeaderMeta(index);
     },
 
     /**
@@ -496,9 +496,16 @@ Custom property | Description | Default
       if (index === undefined) {
         return false;
       }
-      this.set(['renderedRamlHeaders', index, 'description'], helpItem.desc);
-      this.set(['renderedRamlHeaders', index, 'examples'], [helpItem.example]);
+      this._updateCustomHeaderMeta(index, helpItem.desc, helpItem.example);
       return true;
+    },
+
+    _updateCustomHeaderMeta: function(index, desc, example) {
+      desc = desc || '';
+      example = example || '';
+      this.set(['renderedRamlHeaders', index, 'description'], desc);
+      this.set(['renderedRamlHeaders', index, 'hasDescription'], desc ? true : false);
+      this.set(['renderedRamlHeaders', index, 'examples'], [example]);
     },
 
     /**
