@@ -57,13 +57,22 @@ to the one recognizable by this element.
 Custom property | Description | Default
 ----------------|-------------|----------
 `--raml-headers-form` | Mixin applied to the element | `{}`
-`--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.38)`
+`--raml-headers-form-input-label-color` | Color of the lable of the `paper-input` element. | `rgba(0, 0, 0, 0.48)`
+`--raml-headers-form-input-label-color-required` | Color of the lable of the `paper-input` element when it's required. | `rgba(0, 0, 0, 0.72)`
 `--raml-headers-form-prodefined-name-color` | Color of the prodefined header name | `rgba(0, 0, 0, 0.87)`
 `--raml-headers-form-docs-color` | Color of the description below the input field | `rgba(0, 0, 0, 0.87)`
 `--primary-color` | Color of the button to add new header | `--primary-color`
-
-## TODO
-- Remove arc-definitions and place only request headers definitions or instruct to use definitions as an external element
+`--inline-help-icon-color` | Color of the icon button to display help | `rgba(0, 0, 0, 0.24)`
+`--inline-help-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.74)`
+`--inline-documentation-color` | Color of the documentation string below the input field. Note that it will appy also `marked-element` styles to this element | `rgba(0, 0, 0, 0.87)`
+`--raml-headers-form-action-button-color` | Color of the action button. | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-button-background` | Background of the acction button | `--secondary-button-background` or `#fff`
+`--secondary-button` | Theme mixin applied to the secondary button | `{}`
+`--raml-headers-form-action-button-hover` | Mixin applied to the secondary button when hovered | `{}`
+`--raml-headers-form-action-button-color-hover` | Color of the action button when hovered | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-button-background-hover` | Background of the acction button when hovered | `--secondary-button-background` or `#fff`
+`--secondary-button-hover` | Theme mixin applied to the secondary button when hovered | `{}`
+`--raml-headers-form-action-button-hover` | Mixin applied to the secondary button when hovered | `{}`
 
 @group RAML Elements
 @element raml-headers-form
@@ -73,25 +82,23 @@ Custom property | Description | Default
   <template strip-whitespace>
     <style include="markdown-styles"></style>
     <style>
-     :host {
-
+    :host {
       display: block;
-
       @apply(--raml-headers-form);
-
       --paper-input-container-label: {
-        color: var(--raml-headers-form-input-label-color, rgba(0, 0, 0, 0.48));
+        color: var(--raml-headers-form-input-label-color, var(--raml-request-parameters-editor-input-label-color, rgba(0, 0, 0, 0.48)));
       }
     }
 
     .required paper-input {
       --paper-input-container-label: {
-        color: var(--raml-request-parameters-editor-required-input-label-color, rgba(0, 0, 0, 0.72));
+        color: var(--raml-headers-form-input-label-color-required, var(--raml-request-parameters-editor-required-input-label-color, rgba(0, 0, 0, 0.72)));
       }
     }
 
     .header-value {
       @apply(--raml-request-parameters-editor-row);
+      @apply(--raml-headers-form);
       position: relative;
     }
 
@@ -101,7 +108,7 @@ Custom property | Description | Default
     }
 
     .docs {
-      @apply(--paper-font-common-base);
+      @apply(--arc-font-common-base);
       font-size: 13px !important;
       font-weight: 200;
       line-height: 24px;
@@ -123,12 +130,12 @@ Custom property | Description | Default
     }
 
     .help-icon {
-      color: rgba(0, 0, 0, 0.12);
+      color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.24));
       transition: color 0.2s linear;
     }
 
     .help-icon:hover {
-      color: var(--accent-color, rgba(0, 0, 0, 0.74));
+      color: var(--inline-help-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.74)));
     }
 
     .value-input {
@@ -147,8 +154,17 @@ Custom property | Description | Default
     }
 
     .action-button {
-      color: var(--accent-color);
-      background-color: #fff;
+      color: var(--raml-headers-form-action-button-color, var(--secondary-button-color, --accent-color));
+      background: var(--raml-headers-form-action-button-background, var(--secondary-button-background, #fff));
+      @apply(--secondary-button);
+      @apply(--raml-headers-form-action-button);
+    }
+
+    .action-button:hover {
+      color: var(--raml-headers-form-action-button-color-hover, var(--secondary-button-color, --accent-color));
+      background: var(--raml-headers-form-action-button-background-hover, var(--secondary-button-background, #fff));
+      @apply(--secondary-button-hover);
+      @apply(--raml-headers-form-action-button-hover);
     }
     </style>
 
@@ -218,7 +234,7 @@ Custom property | Description | Default
       </template>
     </form>
     <div class="add-action">
-      <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">add custom header</paper-button>
+      <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">Add custom header</paper-button>
     </div>
     <arc-definitions></arc-definitions>
   </template>
