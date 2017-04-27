@@ -36,14 +36,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <test-fixture id="basic">
+    <test-fixture id="ramlOnly">
       <template>
-        <raml-headers-form></raml-headers-form>
+        <raml-headers-form disallow-custom></raml-headers-form>
       </template>
     </test-fixture>
 
     <script>
-    /* global fixture, assert, TestHelpers, sinon */
+    /* global fixture, assert, TestHelpers */
     suite('basic', function() {
       var parsedRaml;
       var element;
@@ -67,47 +67,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       setup(function() {
-        element = fixture('basic');
+        element = fixture('ramlOnly');
       });
 
-      test('Computes header array', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.isArray(element.renderedRamlHeaders);
-      });
-
-      test('Insert default value from example when required', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.renderedRamlHeaders[0].value, '123456-acme.client.com');
-      });
-
-      test('Update value for default required values', function() {
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.equal(element.value, 'strig-header: 123456-acme.client.com');
-      });
-
-      test('Fires headers-value-changed event when value change', function() {
-        var spy = sinon.stub();
-        element.addEventListener('headers-value-changed', spy);
-        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
-        TestHelpers.forceXIfStamp(element);
-        assert.isTrue(spy.calledOnce, 'Event has been called once');
-      });
-
-      test('Update value from custom event', function() {
+      test('Hiddes add custom header button', function() {
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
 
-        var event = new CustomEvent('headers-value-changed', {
-          detail: {
-            value: 'x-test: true'
-          },
-          bubbles: true
-        });
-        document.dispatchEvent(event);
-        assert.equal(element.value, 'x-test: true');
+        var action = Polymer.dom(element.root).querySelector('.action-button');
+        var display = window.getComputedStyle(action, null).getPropertyValue('display');
+        assert.equal(display, 'none');
+      });
+
+      test('Calling add() won\'t change number of headers', function() {
+        element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
+        TestHelpers.forceXIfStamp(element);
+        element.add();
+        assert.lengthOf(element.renderedRamlHeaders, 1);
       });
     });
     </script>
