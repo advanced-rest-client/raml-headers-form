@@ -49,6 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var element;
 
       suiteSetup(function(done) {
+        this.timeout(30000);
         var baseUrl = location.href.substr(0, location.href.lastIndexOf('/') + 1);
         var parser = fixture('parser');
         var enhancer = fixture('enhancer');
