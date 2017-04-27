@@ -218,7 +218,7 @@ Custom property | Description | Default
       </template>
     </form>
     <div class="add-action">
-      <paper-button class="action-button" on-tap="add">add custom header</paper-button>
+      <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">add custom header</paper-button>
     </div>
     <arc-definitions></arc-definitions>
   </template>
@@ -285,7 +285,11 @@ Custom property | Description | Default
         value: '768px'
       },
       // A node on which this element add it's listeners.
-      _eventTarget: HTMLElement
+      _eventTarget: HTMLElement,
+      /**
+       * If set, custom headers won't be available.
+       */
+      disallowCustom: Boolean
     },
 
     observers: [
@@ -385,6 +389,9 @@ Custom property | Description | Default
     },
     // Appends an empty header to the list.
     add: function() {
+      if (this.disallowCustom) {
+        return;
+      }
       var obj = {
         type: 'string',
         value: '',
