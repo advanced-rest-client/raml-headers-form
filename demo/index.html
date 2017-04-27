@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../../arc-demo-helpers/raml-demo-page.html">
   <link rel="import" href="../../font-roboto/roboto.html">
-
+  <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
   <link rel="import" href="../raml-headers-form.html">
 
   <style>
@@ -48,7 +48,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>The raml-headers-form element</h1>
       <div main>
         <template is="dom-if" if="[[isMethod]]">
-          <raml-headers-form value="{{headers}}" raml-headers="[[selected.headers]]"></raml-headers-form>
+          <raml-headers-form value="{{headers}}" raml-headers="[[selected.headers]]" disallow-custom="[[disallowCustom]]"></raml-headers-form>
+
+          <paper-toggle-button checked="{{disallowCustom}}">Disallow custom headers</paper-toggle-button>
           <h3>Current headers value</h3>
           <textarea name="name" rows="8" cols="40" value="{{headers::input}}"></textarea>
         </template>
