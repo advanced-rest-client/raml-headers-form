@@ -1,3 +1,13 @@
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.8...v0.2.9) (2017-04-27)
+
+
+### Update
+
+* Updated style names for theming. Updated docs ([e1f8fdd2c3475008251227ab283cc5ca9522b795](https://github.com/advanced-rest-client/raml-headers-form/commit/e1f8fdd2c3475008251227ab283cc5ca9522b795))
+
+
+
 <a name="0.2.8"></a>
 ## [0.2.8](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.7...v0.2.8) (2017-04-27)
 
