@@ -341,7 +341,8 @@ Custom property | Description | Default
     _createFormModel: function(item) {
       item.isEnum = !!(item.enum && item.enum.length);
       item.hasDescription = !!item.description;
-      item.inputLabel = item.displayName || item.name || 'Header value';
+      item.inputLabel = item.customHeader ? 'Header value' :
+        item.displayName || item.name || 'Header value';
       if (item.required) {
         item.inputLabel += '*';
       }
