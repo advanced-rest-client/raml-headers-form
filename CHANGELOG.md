@@ -1,3 +1,13 @@
+<a name="0.2.11"></a>
+## [0.2.11](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.10...v0.2.11) (2017-04-28)
+
+
+### Update
+
+* Simplified and optymised the element by compyting form model at botstrap only ([203c82355921a75a38b3d1507a7fb85fcd974492](https://github.com/advanced-rest-client/raml-headers-form/commit/203c82355921a75a38b3d1507a7fb85fcd974492))
+
+
+
 <a name="0.2.10"></a>
 ## [0.2.10](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.9...v0.2.10) (2017-04-27)
 

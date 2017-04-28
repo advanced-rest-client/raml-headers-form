@@ -173,7 +173,7 @@ Custom property | Description | Default
         <div class$="[[_computeRowClass(item)]]">
           <div class="value-input">
             <template is="dom-if" if="[[item.isEnum]]">
-              <paper-dropdown-menu label="[[_computeInputLabel(item.*)]]" name="[[item.name]]" required id="rrpv-[[index]]">
+              <paper-dropdown-menu label="[[item.inputLabel]]" name="[[item.name]]" required$="[[item.required]]" id="rrpv-[[index]]">
                 <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{item.value}}">
                   <template is="dom-repeat" items="[[item.enum]]">
                     <paper-item data-value="[[item]]">[[item]]</paper-item>
@@ -185,7 +185,7 @@ Custom property | Description | Default
             </template>
             <template is="dom-if" if="[[!item.isEnum]]">
               <div class="input">
-                <template is="dom-if" if="[[!_hasName(item.*)]]">
+                <template is="dom-if" if="[[item.customHeader]]">
                   <!-- custom header name -->
                   <paper-input-container class="header-name" auto-validate>
                     <label>Header name</label>
@@ -201,26 +201,26 @@ Custom property | Description | Default
                   </paper-input-container>
                 </template>
                 <paper-input
-                  label="[[_computeInputLabel(item.*)]]"
+                  label="[[item.inputLabel]]"
                   id="rrpv-[[index]]"
                   value="{{item.value}}"
-                  required="[[item.required]]"
+                  required$="[[item.required]]"
                   pattern="[[item.pattern]]"
                   name="[[item.name]]"
                   auto-validate
-                  type="[[_computeInputType(item.type)]]"
+                  type="[[item.inputType]]"
                   min="[[item.minimum]]"
                   max="[[item.maximum]]"
                   maxlength="[[item.maxLength]]"
-                  always-float-label="[[_computeFloatLabel(item.*)]]"
-                  placeholder="[[_computePlacdeholder(item.*)]]">
+                  always-float-label="[[item.inputFloatLabel]]"
+                  placeholder="[[item.inputPlaceholder]]">
                 </paper-input>
               </div>
               <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!item.customHeader]]" on-tap="_removeHeader"></paper-icon-button>
               <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="_openDocs"></paper-icon-button>
             </template>
           </div>
-          <template is="dom-if" if="[[item.hasDescription]]" restamp="true">
+          <template is="dom-if" if="[[item.hasDescription]]">
             <div class="docs">
               <iron-collapse>
                 <marked-element markdown="[[item.description]]">
@@ -322,62 +322,48 @@ Custom property | Description | Default
     _transformHeaders: function(headers) {
       return headers.map(function(item) {
         item = Object.assign({}, item);
-        item.isEnum = !!(item.enum && item.enum.length);
-        item.hasDescription = !!item.description;
-        if (item.required && typeof item.default !== 'undefined' && !item.value) {
-          item.value = item.default;
-        }
-        if (typeof item.value === 'undefined' && item.required) {
-          if (item.examples) {
-            item.value = item.examples[0];
-          } else if (item.example) {
-            item.value = item.example;
-          }
-          if (item.value && item.value.indexOf && item.value.indexOf(item.name + ':') === 0) {
-            item.value = item.value.substr(item.name.length + 1);
-          }
-          if (typeof item.value === 'undefined' && item.isEnum) {
-            item.value = item.enum[0];
-          }
-        }
-        return item;
-      });
+        return this._createFormModel(item);
+      }, this);
     },
 
-    // Computes the name of the label to display in the input field.
-    _computeInputLabel: function(record) {
-      var object = record && record.base;
-      if (!object) {
-        return 'Header value';
+    _createFormModel: function(item) {
+      item.isEnum = !!(item.enum && item.enum.length);
+      item.hasDescription = !!item.description;
+      item.inputLabel = item.displayName || item.name || 'Header value';
+      if (item.required) {
+        item.inputLabel += '*';
+      }
+      if (['number', 'integer', 'float'].indexOf(item.type) !== -1) {
+        item.inputType = 'number';
+      } else {
+        item.inputType = 'text';
+      }
+      if (item.examples && item.examples.length && item.examples[0]) {
+        item.inputPlaceholder = 'Example: ' + item.examples[0];
+      } else if (item.example && typeof item.example === 'string') {
+        item.inputPlaceholder = 'Example: ' + item.example;
+      }
+      if (item.inputPlaceholder) {
+        item.inputFloatLabel = true;
       }
 
-      if (object.customHeader) {
-        return 'Header value';
+      if (item.required && typeof item.default !== 'undefined' && !item.value) {
+        item.value = item.default;
       }
-
-      var label = object.displayName || object.name;
-      if (!label) {
-        return 'Header value';
+      if (typeof item.value === 'undefined' && item.required) {
+        if (item.examples) {
+          item.value = item.examples[0];
+        } else if (item.example) {
+          item.value = item.example;
+        }
+        if (item.value && item.value.indexOf && item.value.indexOf(item.name + ':') === 0) {
+          item.value = item.value.substr(item.name.length + 1);
+        }
+        if (typeof item.value === 'undefined' && item.isEnum) {
+          item.value = item.enum[0];
+        }
       }
-      if (object.required) {
-        label += '*';
-      }
-      return label;
-    },
-
-    // Computes input type attribute based on item's type
-    _computeInputType: function(itemType) {
-      if (!itemType || itemType === 'text') {
-        return 'text';
-      }
-      switch (itemType) {
-        case 'number':
-        case 'integer':
-        case 'float':
-          return 'number';
-        default:
-          return 'text';
-      }
+      return item;
     },
 
     // Handler for the remove button click.
@@ -402,19 +388,12 @@ Custom property | Description | Default
         name: '',
         customHeader: true
       };
+      obj = this._createFormModel(obj);
       if (!this.renderedRamlHeaders) {
         this.set('renderedRamlHeaders', [obj]);
       } else {
         this.push('renderedRamlHeaders', obj);
       }
-    },
-    // Returns true if the `name` property is not set or empty
-    _hasName: function(record) {
-      var object = record.base;
-      if (!object) {
-        return false;
-      }
-      return !!object.name && !object.customHeader;
     },
 
     // Handler for header name field focus
@@ -654,21 +633,20 @@ Custom property | Description | Default
     },
     /**
      * Transforms generated from headers source string header object to
-     * form's intenal data object.
+     * form's internal data object.
      *
      * @param {Object<string, string>} header Map of header properties (name
      * and value)
      * @return {Object} Internal datamodel created from the header.
      */
     _headersModelFromObject: function(header) {
-      return {
+      var obj = {
         key: header.name,
         name: header.name,
-        required: false,
-        type: 'string',
         value: header.value,
         customHeader: true
       };
+      return this._createFormModel(obj);
     },
 
     /**
@@ -689,33 +667,6 @@ Custom property | Description | Default
       return this.$.form.validate();
     },
 
-    /**
-     * Check if passed object is not empty.
-     * 0 (zero) returns true while empty string returns false.
-     *
-     * @return {Boolean} True/False depending if passed object has a value.
-     */
-    hasValue: function(obj) {
-      if (typeof obj === 'number' && obj === 0) {
-        return true;
-      }
-      if (typeof obj === 'boolean') {
-        return true;
-      }
-      return !!obj;
-    },
-
-    isDisplayHelpHidden: function(record) {
-      var item = record.base;
-      if (!item) {
-        return true;
-      }
-      if (!item.description || !item.name) {
-        return true;
-      }
-      return false;
-    },
-
     // Opens the documentation for item.
     _openDocs: function(e) {
       var model = e.model;
@@ -727,25 +678,6 @@ Custom property | Description | Default
       collapse.opened = !collapse.opened;
     },
 
-    // Computes placeholder value for the item
-    _computePlacdeholder: function(record) {
-      var object = record.base;
-      if (!object) {
-        return;
-      }
-      if (!!object.examples && object.examples.length && object.examples[0]) {
-        return 'Example: ' + object.examples[0];
-      }
-    },
-    // Computes if the input's lable should always float (to use placeholder)
-    _computeFloatLabel: function(record) {
-      var placeholder = this._computePlacdeholder(record);
-      if (!placeholder) {
-        return false;
-      }
-      return true;
-    },
-
     // Computes class for the header item form container.
     _computeRowClass: function(item) {
       var clazz = 'header-value';
@@ -755,11 +687,6 @@ Custom property | Description | Default
         clazz += ' optional';
       }
       return clazz;
-    },
-
-    // Computes if given array item has enum values.
-    _computeIsEnum: function(itemEnum) {
-      return !!(itemEnum && itemEnum.length);
     }
 
   });
