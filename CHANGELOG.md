@@ -1,3 +1,9 @@
+<a name="0.2.14"></a>
+## [0.2.14](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.13...v0.2.14) (2017-05-25)
+
+
+
+
 <a name="0.2.13"></a>
 ## [0.2.13](https://github.com/advanced-rest-client/raml-headers-form/compare/0.2.12...v0.2.13) (2017-05-25)
 
