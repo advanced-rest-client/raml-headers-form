@@ -194,10 +194,6 @@ Custom property | Description | Default
     .delete-icon:hover {
       @apply(--raml-headers-form-action-button-delete-hover);
     }
-
-    .anypoint-text-input {
-      @apply(--anypoint-text-input);
-    }
     </style>
 
     <form is="iron-form" id="form">
@@ -223,7 +219,7 @@ Custom property | Description | Default
                     <label>Header name</label>
                     <input
                       is="anypoint-input"
-                      class="name-change-input anypoint-text-input"
+                      class="name-change-input"
                       on-focus="_headerNameFocus"
                       type="text"
                       value="{{item.name::input}}"
@@ -273,7 +269,7 @@ Custom property | Description | Default
     </form>
     <div class="add-action">
       <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">
-        <div class="btn-icon">+</div>
+        <span class="btn-icon">+</span>
         Add custom header
       </paper-button>
     </div>
