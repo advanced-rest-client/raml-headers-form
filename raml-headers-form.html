@@ -76,6 +76,11 @@ Custom property | Description | Default
 `--raml-headers-form-action-button-background-hover` | Background of the acction button when hovered | `--secondary-button-background` or `#fff`
 `--secondary-button-hover` | Theme mixin applied to the secondary button when hovered | `{}`
 `--raml-headers-form-action-button-hover` | Mixin applied to the secondary button when hovered | `{}`
+`--raml-headers-form-action-button-icon` | Mixin applied to the icon for secondary button | `{}`
+`--raml-headers-form-action-button-icon-hover` | Mixin applied to the icon for secondary button for hover state | `{}`
+`--raml-headers-form-action-button-delete` | Mixin applied to the delete button | `{}`
+`--raml-headers-form-action-button-delete-hover` | Mixin applied to the delete button for hover state | `{}`
+`--anypoint-text-input` | Mixin applied to the text field | `{}`
 
 @group RAML Elements
 @element raml-headers-form
@@ -172,6 +177,27 @@ Custom property | Description | Default
       @apply(--secondary-button-hover);
       @apply(--raml-headers-form-action-button-hover);
     }
+
+    .btn-icon {
+      display: none;
+      @apply(--raml-headers-form-action-button-icon);
+    }
+
+    .btn-icon:hover {
+      @apply(--raml-headers-form-action-button-icon-hover);
+    }
+
+    .delete-icon {
+      @apply(--raml-headers-form-action-button-delete);
+    }
+
+    .delete-icon:hover {
+      @apply(--raml-headers-form-action-button-delete-hover);
+    }
+
+    .anypoint-text-input {
+      @apply(--anypoint-text-input);
+    }
     </style>
 
     <form is="iron-form" id="form">
@@ -197,7 +223,7 @@ Custom property | Description | Default
                     <label>Header name</label>
                     <input
                       is="anypoint-input"
-                      class="name-change-input"
+                      class="name-change-input anypoint-text-input"
                       on-focus="_headerNameFocus"
                       type="text"
                       value="{{item.name::input}}"
@@ -246,7 +272,10 @@ Custom property | Description | Default
       </template>
     </form>
     <div class="add-action">
-      <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">Add custom header</paper-button>
+      <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">
+        <div class="btn-icon">+</div>
+        Add custom header
+      </paper-button>
     </div>
     <arc-definitions></arc-definitions>
   </template>
