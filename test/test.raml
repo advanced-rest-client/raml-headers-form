@@ -48,3 +48,23 @@ securitySchemes:
         enum: [ one, two ]
         default: one
         description: Test header
+/demo:
+  get:
+    headers:
+      x-environment:
+        enum: [development, staging, production]
+        default: staging
+        description: Targeted environment for the query.
+      X-Dept:
+        type: array
+        example: [ 18-FINANCE, 200-MISC ]
+        description: |
+          A department code to be charged.
+          Multiple of such headers are allowed.
+        items:
+          pattern: ^\d+\-\w+$
+          example: 230-OCTO
+      X-Tracker:
+        description: A code to track API calls end to end
+        pattern: ^\w{16}$
+        example: gfr456d03ygh38s2
