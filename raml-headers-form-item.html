@@ -142,7 +142,7 @@ Custom property | Description | Default
         <raml-type-form-input model="[[model]]" name="[[name]]" value="{{value}}" data-type="typed"></raml-type-form-input>
         <template is="dom-if" if="[[model.hasDescription]]">
           <span>
-            <paper-icon-button class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="toggleDocumentation"></paper-icon-button>
+            <paper-icon-button class="help-icon" suffix icon="arc:help" hidden$="[[!model.hasDescription]]" on-tap="toggleDocumentation"></paper-icon-button>
             <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
           </span>
         </template>
@@ -166,7 +166,7 @@ Custom property | Description | Default
           <raml-type-form-input model="[[model]]" name="[[name]]" value="{{value}}" data-type="custom"></raml-type-form-input>
           <template is="dom-if" if="[[model.hasDescription]]">
             <span>
-              <paper-icon-button class="help-icon" suffix icon="arc:help" hidden$="[[!item.hasDescription]]" on-tap="toggleDocumentation"></paper-icon-button>
+              <paper-icon-button class="help-icon" suffix icon="arc:help" hidden$="[[!model.hasDescription]]" on-tap="toggleDocumentation"></paper-icon-button>
               <paper-tooltip position="left" offset="1" margin-top="1" animation-delay="300">Display documentation</paper-tooltip>
             </span>
           </template>
