@@ -75,7 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
 
-        var action = Polymer.dom(element.root).querySelector('.action-button');
+        var action = Polymer.dom(element.root).querySelector('.add-action');
         var display = window.getComputedStyle(action, null).getPropertyValue('display');
         assert.equal(display, 'none');
       });
@@ -84,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
         element.add();
-        assert.lengthOf(element.renderedRamlHeaders, 1);
+        assert.lengthOf(element.model, 1);
       });
     });
     </script>
