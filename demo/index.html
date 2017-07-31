@@ -44,11 +44,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body unresolved>
   <template is="dom-bind" id="app">
-    <raml-demo-page selected-object="{{selected}}" is-method="{{isMethod}}">
+    <raml-demo-page selected-object="{{selected}}" is-method="{{isMethod}}" narrow="{{narrow}}">
+      <paper-item data-url$="[[testRaml]]">Test case with RAML 1.0</paper-item>
       <h1>The raml-headers-form element</h1>
       <div main>
         <template is="dom-if" if="[[isMethod]]">
-          <raml-headers-form value="{{headers}}" raml-headers="[[selected.headers]]" disallow-custom="[[disallowCustom]]"></raml-headers-form>
+          <raml-headers-form value="{{headers}}" raml-headers="[[selected.headers]]" disallow-custom="[[disallowCustom]]" narrow="[[narrow]]"></raml-headers-form>
 
           <paper-toggle-button checked="{{disallowCustom}}">Disallow custom headers</paper-toggle-button>
           <h3>Current headers value</h3>
@@ -58,6 +59,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
     </raml-demo-page>
   </template>
+  <script>
+  (function(app) {
+    var path = location.pathname;
+    if (~path.indexOf('.html')) {
+      path = path.substr(0, path.lastIndexOf('/') + 1);
+    }
+    var ramlRoot = location.protocol + '//' + location.host + path.replace('demo', 'test');
+    app.testRaml = ramlRoot + 'test.raml';
+  })(document.querySelector('template[is="dom-bind"]'));
+  </script>
 </body>
-
 </html>

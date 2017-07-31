@@ -74,13 +74,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Computes header array', function() {
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
-        assert.isArray(element.renderedRamlHeaders);
+        assert.isArray(element.model);
       });
 
       test('Insert default value from example when required', function() {
         element.ramlHeaders = parsedRaml.resources[0].methods[0].headers;
         TestHelpers.forceXIfStamp(element);
-        assert.equal(element.renderedRamlHeaders[0].value, '123456-acme.client.com');
+        assert.equal(element.model[0].value, '123456-acme.client.com');
       });
 
       test('Update value for default required values', function() {

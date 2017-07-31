@@ -15,19 +15,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <link rel="import" href="../raml-headers-form.html">
   </head>
   <body>
+
+    <test-fixture id="basic">
+      <template>
+        <raml-headers-form></raml-headers-form>
+      </template>
+    </test-fixture>
+
     <script>
-      /* global WCT */
-      // Load and run all tests (.html, .js):
-      WCT.loadSuites([
-        'basic-test.html',
-        'basic-test.html?dom=shadow',
-        'raml-only.html',
-        'raml-only.html?dom=shadow',
-        'auto-description-test.html',
-        'auto-description-test.html?dom=shadow'
-      ]);
+    /* global fixture, assert, TestHelpers */
+    /* jshint esnext: true */
+    suite('basic', function() {
+      var element;
+      setup(function() {
+        element = fixture('basic');
+        element.value = 'Content-Type: hello';
+        TestHelpers.forceXIfStamp(element);
+      });
+
+      test('Adds description of the header', function() {
+        assert.isTrue(element.model[0].hasDescription);
+      });
+
+      test('Adds example of the header', function() {
+        assert.isAbove(element.model[0].examples.length, 0);
+      });
+
+    });
     </script>
+
   </body>
 </html>
