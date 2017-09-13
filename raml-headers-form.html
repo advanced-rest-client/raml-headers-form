@@ -251,7 +251,7 @@ Custom property | Description | Default
                 </anypoint-text-field>
               </div>
               <paper-icon-button noink title="Remove header" class="delete-icon" suffix icon="anypoint:close" hidden$="[[!item.customHeader]]" on-tap="_removeHeader"></paper-icon-button>
-              <paper-icon-button noink title="Display documentation" class="help-icon" suffix icon="anypoint:question" hidden$="[[!item.hasDescription]]" on-tap="_openDocs"></paper-icon-button>
+              <paper-icon-button noink title="Display documentation" class="help-icon" suffix icon="anypoint:anypoint-question" hidden$="[[!item.hasDescription]]" on-tap="_openDocs"></paper-icon-button>
             </template>
           </div>
           <template is="dom-if" if="[[item.hasDescription]]">
