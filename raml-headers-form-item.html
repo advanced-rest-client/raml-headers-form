@@ -136,6 +136,15 @@ Custom property | Description | Default
       margin-right: 0;
       @apply --raml-headers-form-name-input-narrow;
     }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    :host([is-array]) .value-field {
+      @apply --layout-start;
+      @apply --raml-headers-form-array-parameter;
+    }
     </style>
     <template is="dom-if" if="[[!isCustom]]">
       <div class="value-field">
@@ -222,6 +231,14 @@ Custom property | Description | Default
       isCustom: {
         type: Boolean,
         value: false
+      },
+      /**
+       * If set it is render the item control as an array item (adds more
+       * spacing to the element)
+       */
+      isArray: {
+        type: Boolean,
+        reflectToAttribute: true
       }
     },
 
