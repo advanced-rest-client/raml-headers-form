@@ -114,7 +114,7 @@ Custom property | Description | Default
     .value-field {
       @apply --layout-flex;
       @apply --layout-horizontal;
-      @apply --layout-start;
+      @apply --layout-center;
     }
 
     .param-name,
@@ -135,6 +135,10 @@ Custom property | Description | Default
     .narrow .param-name {
       margin-right: 0;
       @apply --raml-headers-form-name-input-narrow;
+    }
+
+    [hidden] {
+      display: none !important;
     }
     </style>
     <template is="dom-if" if="[[!isCustom]]">

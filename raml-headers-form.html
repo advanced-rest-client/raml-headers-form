@@ -85,6 +85,7 @@ See styles for `raml-headers-form-item` for more styling options.
 
     .form-item {
       @apply --layout-horizontal;
+      @apply --layout-center;
     }
 
     raml-headers-form-item {
@@ -113,6 +114,10 @@ See styles for `raml-headers-form-item` for more styling options.
       background: var(--raml-headers-form-action-button-background-hover, var(--secondary-button-background, #fff));
       @apply --secondary-button-hover;
       @apply --raml-headers-form-action-button-hover;
+    }
+
+    [hidden] {
+      display: none !important;
     }
     </style>
     <form is="iron-form" id="form">
