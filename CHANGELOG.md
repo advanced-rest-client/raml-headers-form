@@ -1,3 +1,13 @@
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/advanced-rest-client/raml-headers-form/compare/0.3.1...0.3.3) (2017-11-09)
+
+
+### Update
+
+* Forcing hidden state from attribute ([310ab673de074cc3820fa836273ae3316c920ffe](https://github.com/advanced-rest-client/raml-headers-form/commit/310ab673de074cc3820fa836273ae3316c920ffe))
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/advanced-rest-client/raml-headers-form/compare/0.3.1...0.3.2) (2017-07-31)
 
