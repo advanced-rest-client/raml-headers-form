@@ -125,7 +125,7 @@ See styles for `raml-headers-form-item` for more styling options.
         <div class="form-item">
           <raml-headers-form-item name="{{item.name}}" value="{{item.value}}" model="[[item]]" required$="[[item.required]]" is-custom="[[item.isCustom]]" is-array="[[item.isArray]]" narrow="[[narrow]]"></raml-headers-form-item>
           <span>
-            <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!item.isCustom]]" on-tap="_removeHeader"></paper-icon-button>
+            <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:remove-circle-outline" hidden$="[[!item.isCustom]]" on-tap="_removeHeader"></paper-icon-button>
           </span>
         </div>
       </template>
