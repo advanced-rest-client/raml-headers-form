@@ -85,7 +85,7 @@ See styles for `raml-headers-form-item` for more styling options.
 
     .form-item {
       @apply --layout-horizontal;
-      @apply --layout-center;
+      @apply --layout-start;
     }
 
     raml-headers-form-item {
@@ -123,7 +123,7 @@ See styles for `raml-headers-form-item` for more styling options.
     <form is="iron-form" id="form">
       <template is="dom-repeat" items="{{model}}" id="headersList">
         <div class="form-item">
-          <raml-headers-form-item name="{{item.name}}" value="{{item.value}}" model="[[item]]" required$="[[item.required]]" is-custom="[[item.isCustom]]" narrow="[[narrow]]"></raml-headers-form-item>
+          <raml-headers-form-item name="{{item.name}}" value="{{item.value}}" model="[[item]]" required$="[[item.required]]" is-custom="[[item.isCustom]]" is-array="[[item.isArray]]" narrow="[[narrow]]"></raml-headers-form-item>
           <span>
             <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!item.isCustom]]" on-tap="_removeHeader"></paper-icon-button>
           </span>

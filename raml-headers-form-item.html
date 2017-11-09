@@ -114,7 +114,7 @@ Custom property | Description | Default
     .value-field {
       @apply --layout-flex;
       @apply --layout-horizontal;
-      @apply --layout-center;
+      @apply --layout-start;
     }
 
     .param-name,
@@ -139,6 +139,11 @@ Custom property | Description | Default
 
     [hidden] {
       display: none !important;
+    }
+
+    :host([is-array]) .value-field {
+      @apply --layout-start;
+      @apply --raml-headers-form-array-parameter;
     }
     </style>
     <template is="dom-if" if="[[!isCustom]]">
@@ -226,6 +231,14 @@ Custom property | Description | Default
       isCustom: {
         type: Boolean,
         value: false
+      },
+      /**
+       * If set it is render the item control as an array item (adds more
+       * spacing to the element)
+       */
+      isArray: {
+        type: Boolean,
+        reflectToAttribute: true
       }
     },
 
