@@ -1,3 +1,23 @@
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/advanced-rest-client/raml-headers-form/compare/0.3.3...0.3.4) (2017-11-10)
+
+
+### Fix
+
+* Adding missing import. ([1163b3d6b19f3a6ad96ef5c79d1cd1ab1e353615](https://github.com/advanced-rest-client/raml-headers-form/commit/1163b3d6b19f3a6ad96ef5c79d1cd1ab1e353615))
+* Fixed style declaration ([948ad95c50ca646be2b272f8f62886a31d7afe8c](https://github.com/advanced-rest-client/raml-headers-form/commit/948ad95c50ca646be2b272f8f62886a31d7afe8c))
+
+### New
+
+* Added add action icon to make it consistant with other elements. ([77dc34ff570d55b2558c706098a92a5e6e0b6265](https://github.com/advanced-rest-client/raml-headers-form/commit/77dc34ff570d55b2558c706098a92a5e6e0b6265))
+
+### Update
+
+* Removed duplicated import. ([bbb7ed5e9e24142d1222a3c1350766a2b02f8203](https://github.com/advanced-rest-client/raml-headers-form/commit/bbb7ed5e9e24142d1222a3c1350766a2b02f8203))
+* Updated delete icon to make it consistant accross elements ([3e6fccec9eecb294b73eb3a508d98c1320b1362a](https://github.com/advanced-rest-client/raml-headers-form/commit/3e6fccec9eecb294b73eb3a508d98c1320b1362a))
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/advanced-rest-client/raml-headers-form/compare/0.3.1...0.3.3) (2017-11-09)
 
