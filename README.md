@@ -44,6 +44,10 @@ Custom property | Description | Default
 `--secondary-button-hover` | Theme mixin applied to the secondary button when hovered | `{}`
 `--from-row-action-icon-color` | Color of the icon button to display help | `--icon-button-color` or `rgba(0, 0, 0, 0.74)`
 `--from-row-action-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.74)`
+`--raml-headers-form-action-icon-color` | Color of the add action icon button | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-icon-color-hover` | Theme variable, color of the action icon button when hovered | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-icon-opacity` | Opacity of the add action icon button | `0.54`
+`--raml-headers-form-action-icon-opacity-hover` | Opacity of the add action icon button when hovered | `0.74`
 
 See styles for `raml-headers-form-item` for more styling options.
 
