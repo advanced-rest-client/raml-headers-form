@@ -13,7 +13,6 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-definitions/arc-definitions.html">
@@ -22,6 +21,7 @@ the License.
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../events-target-behavior/events-target-behavior.html">
 <link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="raml-headers-form-item.html">
 <!--
@@ -67,6 +67,10 @@ Custom property | Description | Default
 `--secondary-button-hover` | Theme mixin applied to the secondary button when hovered | `{}`
 `--from-row-action-icon-color` | Color of the icon button to display help | `--icon-button-color` or `rgba(0, 0, 0, 0.74)`
 `--from-row-action-icon-color-hover` | Color of the icon button to display help when hovered | `--accent-color` or `rgba(0, 0, 0, 0.74)`
+`--raml-headers-form-action-icon-color` | Color of the add action icon button | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-icon-color-hover` | Theme variable, color of the action icon button when hovered | `--secondary-button-color` or `--accent-color`
+`--raml-headers-form-action-icon-opacity` | Opacity of the add action icon button | `0.54`
+`--raml-headers-form-action-icon-opacity-hover` | Opacity of the add action icon button when hovered | `0.74`
 
 See styles for `raml-headers-form-item` for more styling options.
 
@@ -116,6 +120,19 @@ See styles for `raml-headers-form-item` for more styling options.
       @apply --raml-headers-form-action-button-hover;
     }
 
+    .action-icon {
+      margin-right: 8px;
+      color: var(--raml-headers-form-action-icon-color, var(--secondary-button-color, --accent-color));
+      opacity: var(--raml-headers-form-action-icon-opacity, 0.54);
+      transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .action-button:hover  .action-icon,
+    .action-icon:hover {
+      color: var(--raml-headers-form-action-icon-color-hover, var(--secondary-button-color, --accent-color));
+      opacity: var(--raml-headers-form-action-icon-opacity-hover, 0.74);
+    }
+
     [hidden] {
       display: none !important;
     }
@@ -125,13 +142,16 @@ See styles for `raml-headers-form-item` for more styling options.
         <div class="form-item">
           <raml-headers-form-item name="{{item.name}}" value="{{item.value}}" model="[[item]]" required$="[[item.required]]" is-custom="[[item.isCustom]]" is-array="[[item.isArray]]" narrow="[[narrow]]"></raml-headers-form-item>
           <span>
-            <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" hidden$="[[!item.isCustom]]" on-tap="_removeHeader"></paper-icon-button>
+            <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:remove-circle-outline" hidden$="[[!item.isCustom]]" on-tap="_removeHeader"></paper-icon-button>
           </span>
         </div>
       </template>
     </form>
     <div class="add-action" hidden$="[[disallowCustom]]">
-      <paper-button class="action-button" on-tap="add">Add custom header</paper-button>
+      <paper-button class="action-button" on-tap="add">
+        <iron-icon class="action-icon" icon="arc:add-circle-outline"></iron-icon>
+        Add custom header
+      </paper-button>
     </div>
     <arc-definitions></arc-definitions>
   </template>
